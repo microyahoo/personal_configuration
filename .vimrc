@@ -5,11 +5,14 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
+set rtp+=/usr/local/opt/fzf
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'junegunn/fzf.vim'
+Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'benmills/vimux'
 Plugin 'luochen1990/rainbow'
 Plugin 'VundleVim/Vundle.vim'
@@ -23,8 +26,8 @@ Bundle 'The-NERD-tree'
 Bundle 'Syntastic'
 Plugin 'mileszs/ack.vim'
 Bundle 'L9'
-Plugin 'mdempsky/gocode', {'rtp': 'vim/'}
-" Plugin 'nsf/gocode', {'rtp': 'vim/'}
+" Plugin 'mdempsky/gocode', {'rtp': 'vim/'}
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Bundle 'FuzzyFinder'
 Plugin 'SirVer/ultisnips'
 Plugin 'majutsushi/tagbar'
@@ -33,7 +36,19 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'kien/tabman.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'chase/vim-ansible-yaml'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'jistr/vim-nerdtree-tabs'
 " Plugin 'plasticboy/vim-markdown'
+"python syntax checker
+Plugin 'nvie/vim-flake8'
+Plugin 'vim-scripts/Pydiction'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'prabirshrestha/async.vim'
+Plugin 'prabirshrestha/vim-lsp'
+" Plugin 'neoclide/coc.nvim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -86,6 +101,8 @@ let NERDTreeWinPos='left'
 let NERDTreeWinSize=31
 "不显示'Bookmarks' label 'Press ? for help'
 let NERDTreeMinimalUI=1
+"ignore files in NERDTree
+let NERDTreeIgnore=['\.pyc$', '\~$'] 
 "快捷键
 nnoremap <silent> <F2> :NERDTreeToggle<CR>
 "当打开vim且没有文件时自动打开NERDTree
@@ -202,3 +219,67 @@ syntax enable
 syntax on
 
 colorscheme molokai
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+nnoremap <space> za
+
+" https://github.com/j1z0/vim-config/blob/master/vimrc
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
+
+"Use the below highlight group when displaying bad whitespace is desired.
+highlight BadWhitespace ctermbg=red guibg=red
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.go match BadWhitespace /\s\+$/
+
+" autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+
+set tags=tags
+"set autochdir This will lead cscope 'file does not exist'
+map <F12> :!ctags -R .<CR>
+map <F11> :!cscope -Rbq <CR>
+
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+" let g:go_def_mode='godef'
+" let g:go_info_mode='gocode'
+set rtp+=$GOPATH/src/golang.org/x/lint/misc/vim
+autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
+
+if executable('gopls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'gopls',
+        \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
+        \ 'whitelist': ['go'],
+        \ })
+    autocmd BufWritePre *.go LspDocumentFormatSync
+endif
+
+" let g:go_metalinter_command='golangci-lint'
+" let g:go_metalinter_autosave = 1
+" let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+" let g:go_metalinter_autosave = 1
+" let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+" let g:go_metalinter_deadline = "5s"
+" let g:go_auto_type_info = 1
+" let g:go_auto_sameids = 1
+" let g:go_highlight_types = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_generate_tags = 1
+
+" let g:go_highlight_functions = 1
+" let g:go_highlight_function_calls = 1
+" let g:go_textobj_include_function_doc = 1
+" let g:go_decls_includes = "func,type"
+
+autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
