@@ -1,124 +1,180 @@
-""""""""""""""""""""""""""""""""""""""""
-"
-" Sections:
-"   -> Common settings
-"   -> Vundle settings
-"   -> Color theme settings
-"   -> Directory settings
-"   -> Common file settings
-"   -> Programming settings
-"   -> Define functions
-"   -> Keyboard mappings
+"********************************************************
+"                        Vundle配置                     *
+"********************************************************
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-" Common settings
-set nocompatible " The most important setting
-
-set history=200
-set wildchar=<Tab> wildmenu wildmode=longest,list
-set backspace=2
-
-filetype off
-filetype plugin indent off
-
-" if has("python3")
-"     command! -nargs=1 Py py3 <args>
-" endif
-
-"" Move settings
-map j gj
-map k gk
-
-"" Buffer settings
-set hidden
-set switchbuf=useopen
-
-"" Tab settings
-set showtabline=2
-
-"" Statusline settings
-""" Replaced by vim-airline
-""" set statusline=%m%r\"%f\"\ \ %P\ (%l,%c)\ %y
-
-"" Search settings
-set ignorecase
-set smartcase
-set hlsearch
-set incsearch
-
-"" Encoding settings
-set encoding=utf-8
-set fileencodings=utf-8,gbk
-
-"" Backups settings
-set noswapfile " turn swap file off 
-
-" Vundle settings
+" set the runtime path to include Vundle and initialize
+set rtp+=/usr/local/opt/fzf
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/Vundle.vim'
-
-"" My plugins here (original repos on github)
-""" Common plugins
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'junegunn/vim-easy-align'
+" let Vundle manage Vundle, required
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'junegunn/fzf.vim'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'benmills/vimux'
+Plugin 'luochen1990/rainbow'
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'fatih/vim-go'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-repeat'
-Plugin 'mileszs/ack.vim'
-Plugin 'kien/tabman.vim'
-Plugin 'benmills/vimux'
-Plugin 'terryma/vim-multiple-cursors'
-""" UI plugins
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'altercation/vim-colors-solarized'
-""" C plugins
-Plugin 'diabloneo/cscope_maps.vim'
-""" Golang plugins
-Plugin 'fatih/vim-go'
-""" Python plugins
-Plugin 'nvie/vim-flake8'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'hynek/vim-python-pep8-indent'
-""" Common programming plugins
-Plugin 'tpope/vim-fugitive'
 Plugin 'Valloric/YouCompleteMe'
+Bundle 'tpope/vim-rails.git'
+Bundle 'taglist.vim'
+Bundle 'The-NERD-tree'
+Bundle 'Syntastic'
+Plugin 'mileszs/ack.vim'
+Bundle 'L9'
+" Plugin 'mdempsky/gocode', {'rtp': 'vim/'}
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
+Bundle 'FuzzyFinder'
+Plugin 'SirVer/ultisnips'
 Plugin 'majutsushi/tagbar'
+Plugin 'itchyny/lightline.vim'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'kien/tabman.vim'
+Plugin 'tpope/vim-fugitive'
 Plugin 'chase/vim-ansible-yaml'
-Plugin 'plasticboy/vim-markdown'
-" Plugin 'marcweber/vim-addon-mw-utils', {'name': 'vim-addon-mw-utils'} " used by vim-snipmate
-" Plugin 'tomtom/tlib_vim', {'name': 'tlib_vim'} " used by vim-snipmate
-" Plugin 'garbas/vim-snipmate', {'name': 'vim-snipmate'}
-" Plugin 'honza/vim-snippets', {'name': 'vim-snippets'}
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'jistr/vim-nerdtree-tabs'
+" Plugin 'plasticboy/vim-markdown'
+"python syntax checker
+Plugin 'nvie/vim-flake8'
+Plugin 'vim-scripts/Pydiction'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'prabirshrestha/async.vim'
+Plugin 'prabirshrestha/vim-lsp'
+" Plugin 'neoclide/coc.nvim'
 
-call vundle#end()
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
-filetype plugin indent on 
-filetype plugin on
 
-" Color theme settings
-syntax enable 
-set t_Co=256
-set background=dark
-colorscheme solarized
-set ruler
-set number
-set cursorline
-set cursorcolumn
+"*****************************************************
+"           FuzzyFinder配置                          *
+"*****************************************************
+nnoremap <silent> <F4> :call fuf#givencmd#launch('', 0, '选择命令>', g:fuf_com_list)<CR>
+ let mapleader = "\\"
+ map <leader>F :FufFile<CR>
+ map <leader>f :FufTaggedFile<CR>
+ map <leader>g :FufTag<CR>
+ map <leader>b :FufBuffer<CR>
+ nnoremap <silent> sk     :FufFileWithCurrentBufferDir<CR>
 
-"" vim-airline settings
-let g:airline_theme='solarized'
-set laststatus=2
 
-" Diectory settings
+"********************************************************
+"                      NERD_Tree 配置                   *
+"********************************************************
+"显示增强
+let NERDChristmasTree=1
+"自动调整焦点
+let NERDTreeAutoCenter=1
+"鼠标模式:目录单击,文件双击
+let NERDTreeMouseMode=2
+"打开文件后自动关闭
+let NERDTreeQuitOnOpen=0
+"显示文件
+let NERDTreeShowFiles=1
+"显示隐藏文件
+let NERDTreeShowHidden=0
+"高亮显示当前文件或目录
+let NERDTreeHightCursorline=1
+"显示行号
+let NERDTreeShowLineNumbers=1
+"窗口位置
+let NERDTreeWinPos='left'
+"窗口宽度
+let NERDTreeWinSize=31
+"不显示'Bookmarks' label 'Press ? for help'
+let NERDTreeMinimalUI=1
+"ignore files in NERDTree
+let NERDTreeIgnore=['\.pyc$', '\~$'] 
+"快捷键
+nnoremap <silent> <F2> :NERDTreeToggle<CR>
+"当打开vim且没有文件时自动打开NERDTree
+autocmd vimenter * if !argc() | NERDTree | endif
+"只剩 NERDTree时自动关闭
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" open a NERDTree automatically when vim starts up
+"autocmd vimenter * NERDTree
+"open a NERDTree automatically when vim starts up if no files were specified
+autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"open NERDTree automatically when vim starts up on opening a directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+"close vim if the only window left open is a NERDTree
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-"" BufExplorer settings
-let g:bufExplorerShowRelativePath=1
 
-"" Netrw settings
-let g:netrw_list_hide='.*\.o$,.*\.d$'
+"********************************************************
+"                        Tagbar配置                     *
+"********************************************************
+let g:tagbar_width=35
+let g:tagbar_autofocus=1
+let g:tagbar_left = 0
+nmap <F3> :TagbarToggle<CR>
 
+"********************************************************
+"                        Ack配置                     *
+"********************************************************
+
+"********************************************************
+"                        Rainbow配置                     *
+"********************************************************
+let g:rainbow_active = 1
+let g:rainbow_conf = {
+	\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+	\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+	\	'operators': '_,_',
+	\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+	\	'separately': {
+	\		'*': {},
+	\		'tex': {
+	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+	\		},
+	\		'lisp': {
+	\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+	\		},
+	\		'vim': {
+	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+	\		},
+	\		'html': {
+	\			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+	\		},
+	\		'css': 0,
+	\	}
+	\}
+
+"********************************************************
+"                        Vim Tmux Navigator配置                     *
+"********************************************************
+" https://github.com/christoomey/vim-tmux-navigator
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <c-\> :TmuxNavigatePrevious<cr>
+
+"********************************************************
+"                        ctrlp配置                     *
+"********************************************************
 "" CtrlP settings
 let g:ctrlp_map='<c-p>'
 let g:ctrlp_cmd='CtrlP'
@@ -130,177 +186,100 @@ let g:ctrlp_custom_ignore={
     \ 'file': '\v\.(pyc|pyo)$',
     \ 'dir': '\v[\/]\.(git|hg|svn|tox)|vendor|_site$',
     \ }
-nmap <C-b> :CtrlPBuffer<CR>
+" nmap <C-b> :CtrlPBuffer<CR>
 
-"" nerdtree settings
-nmap <C-y> :NERDTreeToggle<CR>
-let NERDTreeIgnore=['.pyc$[[file]]', '.pyo$[[file]]']
-
-"" Tabman settings
-nmap <F9> :TMToggle<CR>
-
-"" Ack settings
-let g:ackprg = "ag --vimgrep"
-
-" Common file settings
-
-"" Tab and indent settings
-""" set expandtab
-set smarttab
-set shiftwidth=4
+"********************************************************
+"                        Others配置                     *
+"********************************************************
 set tabstop=4
+set shiftwidth=4
+set ruler
+set nu
+set showcmd
+set foldenable
+set cul
 
-"" Markdown language
-let g:vim_markdown_folding_disabled=1
-let g:vim_markdown_emphasis_multiline = 0
+set showcmd         " 输入的命令显示出来，看的清楚些
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}   "状态行显示的内容
+set softtabstop=4
+set expandtab
+set backspace=indent,eol,start
+" set mouse=a
+"设置历史记录条数
+set history=2000
+"设置取消备份 禁止临时文件的生成
+set nobackup
+set noswapfile
+set hlsearch
+set incsearch
+" 高亮显示匹配的括号
 
-"" EasyAlign mappings
-:vmap <Enter> <Plug>(EasyAlign)
-:nmap <Leader>a <Plug>(EasyAlign)
+set showmatch
+syntax enable
+syntax on
 
-" Programming settings
+colorscheme molokai
 
-"" Common programming settings
-set colorcolumn=80,100
-highlight ColorColumn ctermbg=4
-
-"" Fold settings
+" Enable folding
 set foldmethod=indent
-set nofoldenable
+set foldlevel=99
+nnoremap <space> za
 
-"" Auto completion settings
-set completeopt=menu,menuone
+" https://github.com/j1z0/vim-config/blob/master/vimrc
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
 
-""" YouCompleteMe settings
-let g:ycm_confirm_extra_conf=0
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_server_log_level = 'info'
-let g:ycm_min_num_identifier_candidate_chars = 2
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_complete_in_strings=1
+"Use the below highlight group when displaying bad whitespace is desired.
+highlight BadWhitespace ctermbg=red guibg=red
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.go match BadWhitespace /\s\+$/
 
-let g:ycm_semantic_triggers =  {
-			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-			\ 'cs,lua,javascript': ['re!\w{2}'],
-			\ }
-nnoremap <leader>jd :YcmCompleter GoToDeclaration<CR>
-" 只能是 #include 或已打开的文件
-nnoremap <leader>je :YcmCompleter GoToDefinition<CR>
+" autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
-"" Diff and patch settings
-set diffopt=filler,vertical,context:3
+set tags=tags
+"set autochdir This will lead cscope 'file does not exist'
+map <F12> :!ctags -R .<CR>
+map <F11> :!cscope -Rbq <CR>
 
-"" Comment settings
-let NERDSpaceDelims=1
-let NERDRemoveExtraSpaces=1
-let NERDCompactSexyComs=1
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+" let g:go_def_mode='godef'
+" let g:go_info_mode='gocode'
+set rtp+=$GOPATH/src/golang.org/x/lint/misc/vim
+autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
 
-"" Tagging system settings
+if executable('gopls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'gopls',
+        \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
+        \ 'whitelist': ['go'],
+        \ })
+    autocmd BufWritePre *.go LspDocumentFormatSync
+endif
 
-""" Cscope settings
-set cscopetag
-"# use quickfix window to display tagging result
-set cscopequickfix=s-,c-,d-,i-,t-,e-,f-,g-
+" let g:go_metalinter_command='golangci-lint'
+" let g:go_metalinter_autosave = 1
+" let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+" let g:go_metalinter_autosave = 1
+" let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+" let g:go_metalinter_deadline = "5s"
+" let g:go_auto_type_info = 1
+" let g:go_auto_sameids = 1
+" let g:go_highlight_types = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_generate_tags = 1
 
-""" Tagbar settings
-:nmap <F8> :TagbarToggle<CR>
-let g:tagbar_sort=0
-let g:tagbar_autofocus=1
-let g:tagbar_foldlevel=0
-let g:tagbar_autoshowtag=1
+" let g:go_highlight_functions = 1
+" let g:go_highlight_function_calls = 1
+" let g:go_textobj_include_function_doc = 1
+" let g:go_decls_includes = "func,type"
 
-"" make commands settings
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
-
-"" C programming language
-:augroup cprograms
-:   autocmd!
-:   autocmd FileReadPost *.c,*.h,*.hbh,*.hbc set cindent | \
-                                             set cinoptions=(0:0l1
-:augroup END
-
-"" Python programming language
-
-""" jedi-vim settings
-let g:jedi#use_splits_not_buffers="winwidth"
-let g:jedi#show_call_signatures=0
-
-""" vim-flake8 settings
-let g:flake8_show_in_gutter=1
-let g:flake8_show_in_file=1
-let g:flake8_quickfix_height=9
-let g:no_flake8_maps=1
-autocmd BufWritePost *.py call Flake8()
-
-"" Go programming language
-:augroup golang
-:   autocmd!
-:   autocmd FileType go nmap <leader>r <Plug>(go-run)
-:   autocmd FileType go nmap <leader>b <Plug>(go-build)
-:   autocmd FileType go nmap <leader>t <Plug>(go-test)
-:   autocmd FileType go nmap <leader>c <Plug>(go-coverage)
-:   autocmd FileType go nmap <Leader>ds <Plug>(go-def-split)
-:   autocmd FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-:   autocmd FileType go nmap <Leader>dt <Plug>(go-def-tab)
-:   autocmd FileType go nmap <Leader>s <Plug>(go-implements)
-:   autocmd FileType go nmap <Leader>e <Plug>(go-rename)
-:   autocmd FileType go nmap <Leader>i :GoImport 
-:augroup END
-
-let g:go_metalinter_autosave=1
-let g:go_metalinter_autosave_enabled=['vet', 'golint']
-let g:go_metalinter_enabled=['vet', 'golint', 'errcheck']
-let g:go_metalinter_deadline='120s'
-let g:go_highlight_functions=1
-let g:go_highlight_methods=1
-let g:go_highlight_structs=1
-let g:go_highlight_operators=1
-let g:go_highlight_build_constraints=1
-
-function! ToggleGoMetalinterAutosave()
-    if g:go_metalinter_autosave==0
-        let g:go_metalinter_autosave=1
-        echo "Go metalinter autosave on"
-    else
-        let g:go_metalinter_autosave=0
-        echo "Go metalinter autosave off"
-    endif
-endfunction
-
-nmap <F10> :call ToggleGoMetalinterAutosave()<CR>
-
-"" Java programming language
-:augroup javaprograms
-:   autocmd!
-:   autocmd FileType java set shiftwidth=2 tabstop=2
-:augroup END
-
-"" HTML programming language
-let g:user_emmet_install_global=0
-:augroup htmljscss
-:  autocmd!
-:  autocmd FileType html,javascript,css EmmetInstall
-:  autocmd FileType html,javascript,css set shiftwidth=2 tabstop=2
-:augroup END
-
-" Define functions
-
-function! CodingUtf8()
-    call append(line('.') - 1, '# -*- coding: utf-8 -*-')
-    call cursor(line('.') + 1, 1)
-endfunction
-
-" Keyboard mappings
-:nmap <Space> :nohl<CR>
-:nnoremap <C-k>0 :vsplit<CR><C-w><C-w>:split<CR><C-w><C-w><C-w>
-:nnoremap <C-k>8 :call CodingUtf8()<CR>
-:nnoremap <F2> :botright copen<CR>
-:nnoremap <F3> :cclose<CR>
-:nnoremap <F6> :lopen<CR>
-:nnoremap <F7> :lclose<CR>
-:cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-:nnoremap <Leader>vp :VimuxPromptCommand<CR>
-:nnoremap <Leader>vq :VimuxCloseRunner<CR>
-:nnoremap <Leader>tc :tabclose<CR>
+autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
